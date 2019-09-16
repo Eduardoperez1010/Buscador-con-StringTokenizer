@@ -1,2 +1,2 @@
 # Buscador-con-StringTokenizer
-Ver
+Verptn es una image del programa realizado en java
