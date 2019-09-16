@@ -12,19 +12,22 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
-//import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;
 
 public class Ventana extends javax.swing.JFrame {
 
     public static BufferedReader archivolectura;
     String boton = "";
+
     public Ventana() {
         initComponents();
         setLocationRelativeTo(null);
     }
+
     public void getbotones(String btnradio) {
         boton = btnradio;
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,6 +47,7 @@ public class Ventana extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         Mostrar = new javax.swing.JTextArea();
         Salir = new javax.swing.JButton();
+        Limpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Compiladores");
@@ -172,6 +176,13 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
+        Limpiar.setText("Limpiar");
+        Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -199,7 +210,9 @@ public class Ventana extends javax.swing.JFrame {
                                         .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(48, 48, 48))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(BtnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(Limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
                                         .addGap(33, 33, 33))))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -214,7 +227,7 @@ public class Ventana extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(BtnExaminar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
@@ -222,7 +235,9 @@ public class Ventana extends javax.swing.JFrame {
                                     .addComponent(EtqBuscar)
                                     .addComponent(Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -277,22 +292,26 @@ public class Ventana extends javax.swing.JFrame {
 
     private void OpcNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OpcNombreMouseClicked
         getbotones(OpcNombre.getLabel());
-        System.out.println("Seleccionaste Nombre");
+        System.out.println(boton);
+        Buscar.setText("");
     }//GEN-LAST:event_OpcNombreMouseClicked
 
     private void OpcEdadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OpcEdadMouseClicked
         getbotones(OpcEdad.getLabel());
-        System.out.println("Seleccionaste Edad");
+        System.out.println(boton);
+        Buscar.setText("");
     }//GEN-LAST:event_OpcEdadMouseClicked
 
     private void OpcSexoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OpcSexoMouseClicked
         getbotones(OpcSexo.getLabel());
-        System.out.println("Seleccionaste Sexo");
+        System.out.println(boton);
+        Buscar.setText("");
     }//GEN-LAST:event_OpcSexoMouseClicked
 
     private void OpcCuidadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OpcCuidadMouseClicked
         getbotones(OpcCuidad.getLabel());
-        System.out.println("Seleccionaste Ciudad");
+        System.out.println(boton);
+        Buscar.setText("");
     }//GEN-LAST:event_OpcCuidadMouseClicked
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
@@ -300,30 +319,37 @@ public class Ventana extends javax.swing.JFrame {
         String direccion = "Texto.txt";
 
         try {
-            String lineadelarchivo;
-            String inf = "";
+            String Nombre;
+            String Edad;
+            String Sexo;
+            String Ciudad;
+            String lineadelarchivo;            
             String encontrado = "";
-            String nombre;
-            String edad;
-            String sexo;
-            String ciudad;
             archivolectura = new BufferedReader(new FileReader(direccion));
             StringTokenizer token;
             while (archivolectura.ready()) {
                 lineadelarchivo = archivolectura.readLine();
                 token = new StringTokenizer(lineadelarchivo, "_");
-                nombre = token.nextToken();
-                edad = token.nextToken();
-                sexo = token.nextToken();
-                ciudad = token.nextToken();
-                inf = Buscar.getText();
-                if (nombre.equals(inf) || edad.equals(inf) || sexo.equals(inf) || ciudad.equals(inf)) {
-                    encontrado = encontrado + " " + nombre + " " + edad + " " + sexo + " " + ciudad + "\n";
-                }                                
-            }            
+                Nombre = token.nextToken();
+                Edad = token.nextToken();
+                Sexo = token.nextToken();
+                Ciudad = token.nextToken();               
+                if (OpcNombre.isSelected()&& Nombre.equals(Buscar.getText())) {
+                    encontrado = encontrado + " " + Nombre + " " + Edad + " " + Sexo + " " + Ciudad + "\n";
+                }
+                if (OpcEdad.isSelected() && Edad.equals(Buscar.getText())) {
+                    encontrado = encontrado + " " + Nombre + " " + Edad + " " + Sexo + " " + Ciudad + "\n";
+                }
+                if (OpcSexo.isSelected() && Sexo.equals(Buscar.getText())) {
+                    encontrado = encontrado + " " + Nombre + " " + Edad + " " + Sexo + " " + Ciudad + "\n";
+                }
+                if (OpcCuidad.isSelected() && Ciudad.equals(Buscar.getText())) {
+                    encontrado = encontrado + " " + Nombre + " " + Edad + " " + Sexo + " " + Ciudad + "\n";
+                }                
+            }
             System.out.println(encontrado);
             for (int i = 0; i < 1; i++) {
-                Mostrar.append(encontrado + "\n");                
+                Mostrar.append(encontrado + "\n");
             }
         } catch (IOException errorIO) {
             System.out.println(":(" + errorIO);
@@ -337,6 +363,10 @@ public class Ventana extends javax.swing.JFrame {
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
 
     }//GEN-LAST:event_BuscarActionPerformed
+
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
+        Mostrar.setText(" ");
+    }//GEN-LAST:event_LimpiarActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -352,6 +382,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton BtnExaminar;
     private javax.swing.JTextField Buscar;
     private javax.swing.JLabel EtqBuscar;
+    private javax.swing.JButton Limpiar;
     private javax.swing.JTextArea Mostrar;
     private javax.swing.JRadioButton OpcCuidad;
     private javax.swing.JRadioButton OpcEdad;
